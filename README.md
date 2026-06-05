@@ -22,6 +22,8 @@ Para navegar pelos operadores e ligar/desligar as funções, utilize as seguinte
 ### 🔄 Seleção de Operadores (Dentro do Lado Atual)
 * `Right CTRL` + `Botão Avançar do Mouse (MB5)`: Seleciona o **Próximo** operador da lista.
 * `Right CTRL` + `Botão Voltar do Mouse (MB4)`: Seleciona o operador **Anterior** da lista.
+* `Right Shift` + `Botão Avançar do Mouse (MB5)`: Avança 6 operadores na lista, pulando para linha de baixo.
+* `Right Shift` + `Botão Voltar do Mouse (MB4)`: Retrocede 6 operadores na, pulando para linha de cima.
 
 ### ⚙️ Sistema e Troca de Lados
 * `Right ALT` + `Botão Avançar do Mouse (MB5)`: Liga / Desliga a execução do script.
