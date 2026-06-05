@@ -2,13 +2,15 @@
 
 CONTROLES:
 
-[ ALT Direita ] + Botões laterias (Frente/Tras) = SELEÇÃO DE OPERADORES
-   - CTRL Direita + Botão da Frente (MB5) = Próximo operado (do lado atual)
+[ ALT Direita ] + Botões laterais (Frente/Tras) = SELEÇÃO DE OPERADORES
+   - CTRL Direita + Botão da Frente (MB5) = Próximo operador (do lado atual)
    - CTRL Direita + Botão de Tras (MB4)    = Operador anterior (do lado atual)
 
 [ ALT Direita ]  + Side Button (Frente/Tras) = SYSTEMA / TROCA DE LADOS
    - ALT Direita + Frente (MB5)  = Liga e desliga o script
    - ALT Direita  + Tras (MB4) = Troca de lado de operadores (Ataque <-> Defesa)
+
+NOTA DE CALIBRAÇÃO: Agora você pode usar valores decimais como 12.4, -0.3, 0.5, etc.
 
 ]]
 
@@ -20,19 +22,22 @@ local k_map={tog=5,cyc=4,aim=3,sht=1};local b_on=true
 local current_side = 1 
 local i_ptr = 1 
 
+-- Variáveis globais para o acúmulo de frações decimais
+local resto_x, resto_y = 0.0, 0.0
+
 -- Tabelas de Operadores (Apenas nome e configurações de recuo)
 local sides = {
   [1] = {
     name = "ATACANTES",
     ops = {
-      {n="Sledge",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
-      {n="Thatcher",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
-      {n="Ash",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
-      {n="Thermite",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
-      {n="Twitch",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
+      {n="Sledge",r=0,x1=-0.1,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
+      {n="Thatcher",r=1,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
+      {n="Ash",r=15,x1=-1,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
+      {n="Thermite",r=10,x1=1,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
+      {n="Twitch",r=20,x1=-1,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
       {n="Montagne",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
       {n="Glaz",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
-      {n="Fuze",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
+      {n="Fuze",r=15,x1=-1,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
       {n="Blitz",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
       {n="IQ",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
       {n="Buck",r=16,x1=-1,tm1=1100,x2=1,tm2=1500,y1=2,tym1=1100,y2=1,tym2=1400},
@@ -181,15 +186,45 @@ function OnEvent(evt,arg)
  
  if not b_on then return end
  
+ -- LOOP DE COMPENSAÇÃO INTELIGENTE COM SUPORTE A NÚMEROS QUEBRADOS
  while v3(k_map.aim) do
   local op=sides[current_side].ops[i_ptr]
+  
+  -- Zera os restos acumulados sempre que inicia uma nova rajada/tiro
+  resto_x = 0.0
+  resto_y = 0.0
+  
   while v3(k_map.sht) and v3(k_map.aim) do
    local ts=v4()
    while v3(k_map.sht) and v3(k_map.aim) do
-    local now=v4(); local tm=now-ts; local mx,my=0,op.r
-    if tm>=op.tm1 then mx=mx+op.x1; if tm>=op.tm2 then mx=mx+op.x2 end end
-    if tm>=op.tym1 then my=my+op.y1; if tm>=op.tym2 then my=my+op.y2 end end
-    v5(mx,my); v6(7)
+    local now=v4(); local tm=now-ts
+    
+    -- Valores teóricos iniciais baseados na tabela (aceita floats)
+    local alvo_x = 0.0
+    local alvo_y = op.r
+    
+    -- Aplica os estágios de tempo horizontais e verticais
+    if tm>=op.tm1 then alvo_x=alvo_x+op.x1; if tm>=op.tm2 then alvo_x=alvo_x+op.x2 end end
+    if tm>=op.tym1 then alvo_y=alvo_y+op.y1; if tm>=op.tym2 then alvo_y=alvo_y+op.y2 end end
+    
+    -- Injeta as frações decimais guardadas do ciclo anterior
+    alvo_x = alvo_x + resto_x
+    alvo_y = alvo_y + resto_y
+    
+    -- Arredonda matematicamente para o pixel inteiro mais próximo
+    local mover_x = math.floor(alvo_x + 0.5)
+    local mover_y = math.floor(alvo_y + 0.5)
+    
+    -- Guarda o que sobrou (a fração decimal) para acumular no próximo frame de 7ms
+    resto_x = alvo_x - mover_x
+    resto_y = alvo_y - mover_y
+    
+    -- Realiza o movimento físico do mouse apenas se houver pixels inteiros a mover
+    if mover_x ~= 0 or mover_y ~= 0 then
+     v5(mover_x, mover_y)
+    end
+    
+    v6(7)
    end
   end
  end
