@@ -10,8 +10,8 @@ O script foi estruturado de forma inteligente para separar os operadores entre *
 
 * **Separação por Lados (Ataque/Defesa):** O painel do console filtra dinamicamente e exibe apenas os operadores do lado atual, reduzindo a poluição visual.
 * **Troca Rápida de Lado:** Atalho dedicado que pula instantaneamente do Ataque para a Defesa (e vice-versa), redefinindo a seleção diretamente para o operador inicial do lado (`Sledge` no ataque / `Smoke` na defesa).
-* **Interface Limpa e Scannable:** O layout do console foi simplificado para exibir apenas o lado atual, o status do script (`[ ON ]` / `[ OFF ]`) e a tabela de operadores disponíveis, marcando o selecionado com um `[✅]`.
-* **Recuo Dinâmico por Estágios:** Sistema avançado baseado em tempo que altera o comportamento do mouse dependendo de há quantos milissegundos o gatilho está pressionado.
+* **Interface de navegação:** O script conta com um painel visual no console do aplicativo que facilita a visualização de operadores marcando o selecionado com um `[✅]`, e o status do script (`[ ON ]` / `[ OFF ]`).
+* **Recuo Dinâmico por Estágios:** Sistema avançado baseado em tempo que altera o comportamento do mouse dependendo de há quantos milissegundos o gatilho está pressionado e a possibilidade de se utilziar numeros decimais para ajustes fino.
 
 ---
 
