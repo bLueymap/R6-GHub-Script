@@ -1,14 +1,18 @@
 --[[
 
-CONTROLES:
+CONTROLES ATUALIZADOS:
 
-[ ALT Direita ] + Botões laterais (Frente/Tras) = SELEÇÃO DE OPERADORES
-   - CTRL Direita + Botão da Frente (MB5) = Próximo operador (do lado atual)
-   - CTRL Direita + Botão de Tras (MB4)    = Operador anterior (do lado atual)
+[ CTRL Direita ] + Botões laterais = NAVEGAÇÃO ENTRE COLUNAS (LADOS)
+   - CTRL Direita + Botão da Frente (MB5) = Próximo operador (Direita)
+   - CTRL Direita + Botão de Tras (MB4)    = Operador anterior (Esquerda)
 
-[ ALT Direita ]  + Side Button (Frente/Tras) = SYSTEMA / TROCA DE LADOS
+[ SHIFT Direita ] + Botões laterais = NAVEGAÇÃO ENTRE LINHAS (INVERTIDO)
+   - SHIFT Direita + Botão da Frente (MB5) = Pula para a linha de CIMA (Volta 6)
+   - SHIFT Direita + Botão de Tras (MB4)   = Pula para a linha de BAIXO (Avança 6)
+
+[ ALT Direita ]   + Botões laterais = SYSTEMA / TROCA DE LADOS
    - ALT Direita + Frente (MB5)  = Liga e desliga o script
-   - ALT Direita  + Tras (MB4) = Troca de lado de operadores (Ataque <-> Defesa)
+   - ALT Direita + Tras (MB4)    = Troca de lado de operadores (Ataque <-> Defesa)
 
 ]]
 
@@ -26,7 +30,7 @@ local sides = {
   [1] = {
     name = "ATACANTES",
     ops = {
-      {n="Sledge",r=0,x1=-0.1,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
+      {n="Sledge",r=6,x1=-0.5,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
       {n="Thatcher",r=1,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
       {n="Ash",r=15,x1=-1,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
       {n="Thermite",r=10,x1=1,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
@@ -35,16 +39,17 @@ local sides = {
       {n="Glaz",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
       {n="Fuze",r=15,x1=-1,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
       {n="Blitz",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
-      {n="IQ",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
-      {n="Buck",r=16,x1=-1,tm1=1100,x2=1,tm2=1500,y1=2,tym1=1100,y2=1,tym2=1400},
-      {n="Blackbeard",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
-      {n="Capitão",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
-      {n="Hibana",r=14,x1=-1,tm1=100,x2=0,tm2=0,y1=1,tym1=500,y2=1,tym2=900},
-      {n="Jackal",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
-      {n="Ying",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
-      {n="Zofia",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
-      {n="Dokkaebi",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
-      {n="Lion",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
+      {n="IQ",r=0,x1=-0.7,tm1=0,x2=0,tm2=0,y1=9.5,tym1=0,y2=0,tym2=0},
+      {n="Buck",r=0,x1=-0.5,tm1=500,x2=0,tm2=0,y1=15,tym1=0,y2=0,tym2=0},
+      {n="Blackbeard",r=0,x1=0,tm1=0,x2=0,tm2=0,y1=3.2,tym1=0,y2=0,tym2=0},
+      {n="Capitão",r=9,x1=-0.7,tm1=500,x2=0,tm2=0,y1=3,tym1=700,y2=0,tym2=0},
+      {n="Hibana",r=14,x1=-0.8,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
+      {n="Jackal",r=14,x1=-0.6,tm1=0,x2=0,tm2=0,y1=2,tym1=0,y2=0,tym2=350},
+      {n="Ying",r=10,x1=-0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
+      {n="Zofia",r=15,x1=0.5,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
+      {n="Dokka - DMR",r=6,x1=-0.5,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
+      {n="Dokka - SMG",r=7,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
+      {n="Lion",r=5,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
       {n="Finka",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
       {n="Maverick",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
       {n="Nomad",r=10,x1=0,tm1=0,x2=0,tm2=0,y1=0,tym1=0,y2=0,tym2=0},
@@ -111,7 +116,7 @@ local sides = {
   }
 }
 
-local g_ui={c=6,w=13,p=2,chk="[✅]",unk=" .. "} 
+local g_ui={c=6,w=15,p=5,chk="[✅]",unk=" .. "} 
 
 local function f_r() return math.ceil(#sides[current_side].ops / g_ui.c) end
 local function f_pad(s,l) local p=l-#s; return(p>0) and s..string.rep(" ",p) or s end
@@ -138,20 +143,21 @@ function _u(sel)
  local st=(b_on and"[ ON ]")or"[ OFF ]"
  local side_name = sides[current_side].name
  
- v1(" ________________________________________________________________________________ \n")
- v1("|  LADO: "..f_pad(side_name, 12).."          |  STATUS: "..st.."                        |\n")
- v1("|________________________________________________________________________________|\n")
+ v1(" _____________________________________________________________________________________________________ \n")
+ v1("|  LADO: "..f_pad(side_name, 12).."          |  STATUS: "..f_pad(st, 7).."                                             |\n")
+ v1("|_____________________________________________________________________________________________________|\n")
  for r=1,f_r() do v1(" "..f_ln(r,sel).."\n")end
- v1(" ________________________________________________________________________________ \n")
+ v1(" _____________________________________________________________________________________________________ \n")
 end
 
 _u(i_ptr)
 
 function OnEvent(evt,arg)
- local c_dn=v2("rctrl");local a_dn=v2("ralt")
+ local c_dn=v2("rctrl");local a_dn=v2("ralt");local s_dn=v2("rshift")
  local current_ops = sides[current_side].ops
  
  if(evt=="MOUSE_BUTTON_PRESSED")then
+  -- 1. SELEÇÃO HORIZONTAL 
   if c_dn then
    if arg==k_map.tog then 
     i_ptr=(i_ptr%#current_ops)+1
@@ -162,6 +168,29 @@ function OnEvent(evt,arg)
     _u(i_ptr)
     return 
    end
+   
+  elseif s_dn then
+   if arg==k_map.tog then           
+    if i_ptr - g_ui.c >= 1 then
+     i_ptr = i_ptr - g_ui.c
+    else
+     local t = i_ptr
+     while t + g_ui.c <= #current_ops do t = t + g_ui.c end
+     i_ptr = t
+    end
+    _u(i_ptr)
+    return
+   elseif arg==k_map.cyc then       
+    if i_ptr + g_ui.c <= #current_ops then
+     i_ptr = i_ptr + g_ui.c
+    else
+     i_ptr = (i_ptr % g_ui.c)
+     if i_ptr == 0 then i_ptr = g_ui.c end
+    end
+    _u(i_ptr)
+    return
+   end
+   
   elseif a_dn then
    if arg==k_map.tog then 
     b_on=not b_on
@@ -182,6 +211,7 @@ function OnEvent(evt,arg)
  
  if not b_on then return end
  
+ -- Execução do Recoil
  while v3(k_map.aim) do
   local op=sides[current_side].ops[i_ptr]
   
